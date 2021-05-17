@@ -1,4 +1,4 @@
-iconutil
+#icns2ico
 ===
 
 Installation
