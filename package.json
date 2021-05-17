@@ -1,0 +1,25 @@
+{
+  "name": "icns2ico",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/fengtianxi001/icns2ico.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fengtianxi001/icns2ico/issues"
+  },
+  "homepage": "https://github.com/fengtianxi001/icns2ico#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "iconutil": "^1.0.2",
+    "png2icons": "^2.0.1",
+    "uuid": "^8.3.2"
+  }
+}
