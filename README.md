@@ -14,7 +14,7 @@ Usage
 ===
 
 ```js
-const icns2ico = require('./index');
+const icns2ico = require('icns2ico');
 const fs = require("fs")
 var path = '/Users/mac/Desktop/code/icns2icon/test.icns';
 icns2ico.toico(path).then(res => {
