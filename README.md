@@ -21,7 +21,7 @@ const { writeFileSync } = require('fs')
 const { resolve } = require('path')
 const icns2ico = require('icns2ico')
 
-const icnsPath = resolve(__dirname, 'assets/test.icns')
+const icnsPath = resolve('./demo.icns')
 
 const pngBuffers = icns2ico(icnsPath)
 pngBuffers.map(png => writeFileSync(`./${new Date().getTime()}.ico`, png))

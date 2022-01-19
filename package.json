@@ -1,8 +1,8 @@
 {
 	"name": "icns2ico",
-	"version": "1.0.3",
+	"version": "1.0.5",
 	"description": "convert icns to ico",
-	"main": "index.js",
+	"main": "./dist/index.js",
 	"scripts": {
 		"build": "tsc",
 		"example": "node ./example/index.js"
