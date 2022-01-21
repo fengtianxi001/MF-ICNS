@@ -17,12 +17,16 @@ npm install icns2ico
 ## 2. Usage
 
 ```javascript
-const { writeFileSync } = require('fs')
-const { resolve } = require('path')
-const icns2ico = require('icns2ico')
+const icns2ico = require("icns2ico")
+const fs = require("fs")
+const path = require("path")
+const icns = path.resolve(__dirname, "assets/QQ.icns") //your resource
+const icoName = path.parse(icns)["name"]
 
-const icnsPath = resolve('./demo.icns')
-
-const pngBuffers = icns2ico(icnsPath)
-pngBuffers.map(png => writeFileSync(`./${new Date().getTime()}.ico`, png))
+icns2ico(icns).map(({ size, png }) => {
+    if (png) {
+        const name = `${icoName}_${size}.ico`
+        fs.writeFileSync(`./${name}`, png)
+    }
+})
 ```

@@ -1,8 +1,10 @@
 /// <reference types="node" />
-interface imagesProp {
-}
+declare const OSTYPE: any;
 declare class Iconutil {
-    images: Buffer[];
+    images: {
+        size: string;
+        image: Buffer;
+    }[];
     constructor(buffer: Buffer);
     fetchHeader(buffer: Buffer): {
         bytes: number;
@@ -11,5 +13,6 @@ declare class Iconutil {
     fetchImages(buffer: Buffer): {
         data: Buffer;
         image: Buffer;
+        osType: string;
     };
 }

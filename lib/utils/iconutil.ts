@@ -1,16 +1,21 @@
-interface imagesProp {}
-
+// https://github.com/fiahfy/icns/blob/master/src/icns-image.ts
+// https://blog.csdn.net/LIHUINIHAO/article/details/51217107
+const OSTYPE = require('./OSType')
 class Iconutil {
-	images: Buffer[]
+	images: { size: string; image: Buffer }[]
 	constructor(buffer: Buffer) {
 		const header = this.fetchHeader(buffer)
 		let pointer = header.data.length
 		const images = []
 		while (pointer < header.bytes) {
-			const { image, data } = this.fetchImages(buffer.slice(pointer))
-			console.log(image)
-			
-			Buffer.isBuffer(image) && images.push(image)
+			const { image, data, osType } = this.fetchImages(buffer.slice(pointer))
+			// console.log(image)
+
+			Buffer.isBuffer(image) &&
+				images.push({
+					size: OSTYPE[osType],
+					image,
+				})
 			pointer += data.length
 		}
 		this.images = images
@@ -37,6 +42,7 @@ class Iconutil {
 		return {
 			data,
 			image,
+			osType,
 		}
 	}
 }

@@ -1,13 +1,20 @@
 "use strict";
+// https://github.com/fiahfy/icns/blob/master/src/icns-image.ts
+// https://blog.csdn.net/LIHUINIHAO/article/details/51217107
+var OSTYPE = require('./OSType');
 var Iconutil = /** @class */ (function () {
     function Iconutil(buffer) {
         var header = this.fetchHeader(buffer);
         var pointer = header.data.length;
         var images = [];
         while (pointer < header.bytes) {
-            var _a = this.fetchImages(buffer.slice(pointer)), image = _a.image, data = _a.data;
-            console.log(image);
-            Buffer.isBuffer(image) && images.push(image);
+            var _a = this.fetchImages(buffer.slice(pointer)), image = _a.image, data = _a.data, osType_1 = _a.osType;
+            // console.log(image)
+            Buffer.isBuffer(image) &&
+                images.push({
+                    size: OSTYPE[osType_1],
+                    image: image,
+                });
             pointer += data.length;
         }
         this.images = images;
@@ -34,6 +41,7 @@ var Iconutil = /** @class */ (function () {
         return {
             data: data,
             image: image,
+            osType: osType,
         };
     };
     return Iconutil;
