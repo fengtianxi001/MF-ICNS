@@ -1,0 +1,108 @@
+<template>
+  <BaseCard title="ICNS转PNG">
+    <template #operate>
+      <a-button
+        v-for="(item, index) in tableOperate"
+        :key="index"
+        v-bind="{ ...item }"
+      >
+        {{ item.text }}
+      </a-button>
+    </template>
+    <template #default>
+      <a-table
+        v-model:selected-keys="imageSelected"
+        row-key="id"
+        :columns="tableColumns"
+        :data="images"
+        :bordered="false"
+        :pagination="false"
+        :row-selection="{
+          type: 'checkbox',
+          showCheckedAll: true,
+          onlyCurrent: false,
+        }"
+      >
+        <template #name="{ record }">
+          <a-input v-model="record.name" clear />
+        </template>
+        <template #dpi="{ record }">
+          <a-select v-model="record.buffer" :options="record.bufferOptions" />
+        </template>
+      </a-table>
+    </template>
+  </BaseCard>
+</template>
+<script setup lang="tsx">
+import { computed } from "vue";
+import BaseCard from "@/components/BaseCard/index.vue";
+import usePngList from "@/views/ToPNG/hooks/usePngList";
+import { size } from "lodash";
+
+const { images, imageSelected, onAddImages, onRemoveImages, onSaveImages } =
+  usePngList();
+
+const tableColumns = [
+  {
+    width: 30,
+    render: ({ record }: any) => (
+      <a-image width="30" src={record.thumb} preview={false} />
+    ),
+  },
+  {
+    title: "图标名称",
+    width: 370,
+    slotName: "name",
+    dataIndex: "name",
+  },
+  {
+    title: "图标分辨率",
+    slotName: "dpi",
+    dataIndex: "dpi",
+  },
+  {
+    title: "操作",
+    width: 120,
+    align: "center",
+    render: ({ record }: any) => {
+      return (
+        <a-space wrap>
+          <a-link onClick={() => onSaveImages([record.id])}>保存</a-link>
+          <a-link status="danger" onClick={() => onRemoveImages([record.id])}>
+            删除
+          </a-link>
+        </a-space>
+      );
+    },
+  },
+];
+
+const tableOperate = computed<any>(() => {
+  return [
+    {
+      type: "primary",
+      size: "small",
+      text: "导入ICNS图标",
+      onClick: onAddImages,
+    },
+    {
+      type: "primary",
+      size: "small",
+      text: "保存选中项",
+      disabled: size(imageSelected.value) <= 0,
+      onClick: () => onSaveImages([...imageSelected.value]),
+    },
+    {
+      type: "primary",
+      size: "small",
+      status: "danger",
+      text: "删除选中项",
+      disabled: size(imageSelected.value) <= 0,
+      onClick: () => {
+        onRemoveImages([...imageSelected.value]);
+        imageSelected.value = [];
+      },
+    },
+  ];
+});
+</script>
