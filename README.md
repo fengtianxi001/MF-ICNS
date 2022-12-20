@@ -1,4 +1,4 @@
-# MF-ICNS
+# 📟 MF-ICNS
 
 > 一个解析并转换MacOS图标的桌面程序
 
