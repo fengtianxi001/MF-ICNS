@@ -51,7 +51,8 @@
       "output": "release/${version}"
     },
     "mac": {
-      "target": "dmg"
+      "target": "dmg",
+      "icon": "./favicon.icns"
     },
     "win": {
       "target": "nsis"
