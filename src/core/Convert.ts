@@ -1,4 +1,5 @@
 const fs = require("fs");
+const png2icons = require("png2icons");
 
 class Convert {
   static IcnsToPngByUrl(url: string) {
@@ -50,6 +51,9 @@ class Convert {
     return new Blob([uInt8Array], {
       type: contentType,
     });
+  }
+  static PngToIco(buffer: any) {
+    return png2icons.createICO(buffer, png2icons.BILINEAR, 0);
   }
 }
 export default Convert;

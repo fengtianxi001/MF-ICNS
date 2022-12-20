@@ -20,6 +20,7 @@ defineProps<PropsType>();
 <style lang="scss" scoped>
 .base-card {
   width: 100%;
+  min-height: 100%;
   background: var(--color-bg-2);
   border-radius: 4px;
   .base-card-header {

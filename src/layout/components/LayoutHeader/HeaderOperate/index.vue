@@ -16,10 +16,10 @@ import { useTheme } from "@/hooks";
 import { IconMinus, IconClose } from "@arco-design/web-vue/es/icon";
 import { reactive } from "vue";
 import AuthorInfo from "./AuthorInfo.vue";
-import useHeaderMenu from "../../../hooks/useHeaderMenu";
+import useWindowMenu from "../../../hooks/useWindowMenu";
 
 const { themeIcon, themeToggle } = useTheme();
-const { close, minimize } = useHeaderMenu();
+const { close, minimize } = useWindowMenu();
 const OPERATE_LIST = reactive([
   {
     icon: themeIcon,

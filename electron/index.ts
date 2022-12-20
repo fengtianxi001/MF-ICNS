@@ -1,9 +1,10 @@
+import { size } from "lodash";
 import { app, BrowserWindow } from "electron";
 import path from "path";
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    title: "示例工程",
+    title: "MF-ICNS",
     frame: false,
     resizable: false,
     width: 850,
@@ -16,10 +17,10 @@ const createWindow = () => {
     },
   });
 
-  win.webContents.openDevTools();
   if (app.isPackaged) {
     win.loadFile(path.join(__dirname, "../index.html"));
   } else {
+    win.webContents.openDevTools();
     win.loadURL(process.env.VITE_DEV_SERVER_URL as string);
   }
 };
@@ -27,12 +28,11 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    const windows = BrowserWindow.getAllWindows();
+    size(windows) === 0 && createWindow();
   });
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  process.platform !== "darwin" && app.quit();
 });

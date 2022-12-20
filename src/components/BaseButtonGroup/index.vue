@@ -1,26 +1,19 @@
 <template>
   <div class="base-button-group">
-    <BaseButton
-      v-for="(item, index) in configs"
-      :key="index"
-      :size="size"
-      v-bind="{ ...item }"
-    />
+    <a-button v-for="(item, index) in data" :key="index" v-bind="{ ...item }">
+      {{ item.text }}
+    </a-button>
   </div>
 </template>
 <script setup lang="ts">
-import BaseButton from "@/components/BaseButton/index.vue";
 interface PropsType {
-  configs: any[];
-  size: "mini" | "small" | "medium" | "large";
+  data: any[];
 }
-withDefaults(defineProps<PropsType>(), {
-  size: "medium",
-});
+defineProps<PropsType>();
 </script>
 <style lang="scss" scoped>
 .base-button-group {
   display: flex;
-  gap: 10px;
+  grid-gap: 10px;
 }
 </style>

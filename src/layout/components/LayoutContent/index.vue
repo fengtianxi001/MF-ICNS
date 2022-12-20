@@ -3,15 +3,15 @@
     <LayoutSider :width="48">
       <ContentMenu />
     </LayoutSider>
-    <a-layout-content>
+    <LayoutContent>
       <div class="layout-content-main">
         <RouterView></RouterView>
       </div>
-    </a-layout-content>
+    </LayoutContent>
   </Layout>
 </template>
 <script setup lang="ts">
-import { Layout, LayoutSider } from "@arco-design/web-vue";
+import { Layout, LayoutSider, LayoutContent } from "@arco-design/web-vue";
 import ContentMenu from "./ContentMenu.vue";
 </script>
 <style lang="scss">

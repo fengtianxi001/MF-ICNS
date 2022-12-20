@@ -15,11 +15,11 @@
 </template>
 <script setup lang="ts">
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { constant as MENU_LIST } from "@/router/constant";
-import router from "@/router";
 
 const route = useRoute();
+const router = useRouter();
 const selectedKey = computed(() => [route.path]);
 const onMenuItemClick = (key: string) => router.push(key);
 </script>

@@ -19,7 +19,7 @@
     },
     "types": ["node"]
   },
-  "include": ["types", "src"],
+  "include": ["types", "src/**/*.ts", "src/**/*.vue", "src/**/*.d.ts"],
   "references": [
     {
       "path": "./tsconfig.config.json"

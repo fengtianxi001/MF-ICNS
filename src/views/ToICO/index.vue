@@ -1,27 +1,14 @@
 <template>
   <BaseCard title="ICNS转ICO">
     <template #operate>
-      <a-button
-        v-for="(item, index) in tableOperate"
-        :key="index"
-        v-bind="{ ...item }"
-      >
-        {{ item.text }}
-      </a-button>
+      <BaseButtonGroup :data="tableOperate" />
     </template>
     <template #default>
       <a-table
         v-model:selected-keys="imageSelected"
-        row-key="id"
+        v-bind="{ ...tableConfig }"
         :columns="tableColumns"
         :data="images"
-        :bordered="false"
-        :pagination="false"
-        :row-selection="{
-          type: 'checkbox',
-          showCheckedAll: true,
-          onlyCurrent: false,
-        }"
       >
         <template #name="{ record }">
           <a-input v-model="record.name" clear />
@@ -34,15 +21,25 @@
   </BaseCard>
 </template>
 <script setup lang="tsx">
+import { size } from "@/utils/lodash";
 import { computed } from "vue";
-import BaseCard from "@/components/BaseCard/index.vue";
 import useIcoList from "@/views/ToICO/hooks/useIcoList";
-import { size } from "lodash";
-
+import BaseCard from "@/components/BaseCard/index.vue";
+import BaseButtonGroup from "@/components/BaseButtonGroup/index.vue";
 const { images, imageSelected, onAddImages, onRemoveImages, onSaveImages } =
   useIcoList();
 
-const tableColumns = [
+const tableConfig: any = {
+  rowKey: "id",
+  bordered: false,
+  pagination: false,
+  rowSelection: {
+    type: "checkbox",
+    showCheckedAll: true,
+    onlyCurrent: false,
+  },
+};
+const tableColumns: any = [
   {
     width: 30,
     render: ({ record }: any) => (
@@ -89,7 +86,7 @@ const tableOperate = computed<any>(() => {
       type: "primary",
       size: "small",
       text: "保存选中项",
-      disabled: size(imageSelected.value) <= 0,
+      disabled: size(imageSelected) <= 0,
       onClick: () => onSaveImages([...imageSelected.value]),
     },
     {
@@ -97,7 +94,7 @@ const tableOperate = computed<any>(() => {
       size: "small",
       status: "danger",
       text: "删除选中项",
-      disabled: size(imageSelected.value) <= 0,
+      disabled: size(imageSelected) <= 0,
       onClick: () => onRemoveImages([...imageSelected.value]),
     },
   ];

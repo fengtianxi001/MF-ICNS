@@ -2,7 +2,7 @@
   <a-dropdown>
     <img class="author-avatar" alt="avatar" :src="avatar" />
     <template #content>
-      <a-doption>
+      <a-doption @click="onClick('author')">
         <div class="author-profile">
           <img class="author-avatar" alt="avatar" :src="avatar" />
           <div class="author-profile-info">
@@ -11,7 +11,7 @@
           </div>
         </div>
       </a-doption>
-      <a-doption>
+      <a-doption @click="onClick('repo')">
         <template #icon>
           <IconUser />
         </template>
@@ -21,8 +21,16 @@
   </a-dropdown>
 </template>
 <script setup lang="ts">
-import avatar from "@/assets/images/avatar.jpeg";
 import { IconUser } from "@arco-design/web-vue/es/icon";
+import avatar from "@/assets/images/avatar.jpeg";
+import Desktop from "@/core/Desktop";
+const onClick = (type: string) => {
+  const url =
+    type === "author"
+      ? "https://github.com/fengtianxi001"
+      : "https://github.com/fengtianxi001/MF-ICNS";
+  Desktop.openExternal(url);
+};
 </script>
 <style lang="scss" scoped>
 .author-avatar {

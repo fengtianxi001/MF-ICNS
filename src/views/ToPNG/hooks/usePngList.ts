@@ -4,9 +4,8 @@ import { ref } from "vue";
 import { filePicker, uuid } from "@/utils/common";
 import Convert from "@/core/Convert";
 import Format from "@/core/Format";
+import Desktop from "@/core/Desktop";
 const path = require("path");
-const fs = require("fs");
-const { remote } = require("electron");
 
 export interface imageType {
   id: string;
@@ -51,36 +50,10 @@ function usePngList() {
     const cache = images.value
       .filter((image) => ids.includes(image.id))
       .map((item) => ({
-        name: item.name,
+        name: item.name + ".icns",
         buffer: item.buffer,
       }));
-    const flag = cache.every((item) => Boolean(item.name));
-    if (!flag) return Message.error("图标名称不能为空!");
-    const result = await remote.dialog.showOpenDialogSync({
-      properties: ["openDirectory"],
-      message: "请选择保存路径",
-    });
-    if (!result) return void 0;
-    const savePath = result[0];
-    cache.forEach((item) => {
-      const filePath = path.join(savePath, `${item.name}.png`);
-      fs.writeFileSync(filePath, item.buffer);
-    });
-    Notification.requestPermission()
-      .then((permission) => {
-        if (permission !== "granted") return void 0;
-        new Notification(`成功保存${size(cache)}张图标`, {
-          body: "点击在文件夹中查看",
-        }).onclick = () => {
-          remote.shell.showItemInFolder(
-            path.join(savePath, `${cache[0].name}.png`)
-          );
-        };
-        return void 0;
-      })
-      .catch(() => {
-        Message.success(`成功保存${size(cache)}张图标`);
-      });
+    Desktop.saveFiles(cache);
   };
   return {
     images,

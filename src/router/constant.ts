@@ -10,7 +10,7 @@ export const constant: routesType[] = [
       title: "ICNS转PNG",
       icon: IconImage,
     },
-    component: () => import("@/views/ToPng/index.vue"),
+    component: () => import("@/views/ToPNG/index.vue"),
   },
   {
     path: "/toico",
