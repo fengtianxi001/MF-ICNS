@@ -2,6 +2,11 @@
 
 > 一个解析并转换MacOS图标的桌面程序
 
+
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/fengtianxi001/MF-ICNS/desktop/screenshot/cover.png" title="Smiley Sans">
+</h1>
+
 ## 项目说明
 
 目前项目有两个分支
@@ -22,6 +27,3 @@
 
 ## 项目截图
 
-<h1 align="center">
-  <img src="https://raw.githubusercontent.com/fengtianxi001/MF-ICNS/desktop/screenshot/cover.png" title="Smiley Sans">
-</h1>
