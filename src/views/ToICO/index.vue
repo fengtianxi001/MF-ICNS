@@ -73,7 +73,6 @@ const tableColumns: any = [
     },
   },
 ];
-
 const tableOperate = computed<any>(() => {
   return [
     {
@@ -95,7 +94,10 @@ const tableOperate = computed<any>(() => {
       status: "danger",
       text: "删除选中项",
       disabled: size(imageSelected) <= 0,
-      onClick: () => onRemoveImages([...imageSelected.value]),
+      onClick: () => {
+        onRemoveImages([...imageSelected.value]);
+        imageSelected.value = [];
+      },
     },
   ];
 });

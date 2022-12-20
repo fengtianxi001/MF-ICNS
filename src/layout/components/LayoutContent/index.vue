@@ -5,7 +5,7 @@
     </LayoutSider>
     <LayoutContent>
       <div class="layout-content-main">
-        <RouterView></RouterView>
+        <RouterView />
       </div>
     </LayoutContent>
   </Layout>

@@ -20,11 +20,15 @@ export interface imageType {
 function usePngList() {
   const images = ref<imageType[]>([]);
   const imageSelected = ref<string[]>([]);
+
   const onAddImages = async () => {
     const files = await filePicker(".icns");
-    const result = files.map((file: any) => {
+    const result: any = [];
+    files.forEach((file: any) => {
       const bufferList = Convert.IcnsToPngByUrl(file.path);
-      return {
+      if (size(bufferList) == 0)
+        return Message.error("解析失败,请上传正确的icns文件");
+      result.push({
         id: uuid(),
         name: path.basename(file.path, ".icns"),
         thumb: bufferList[0]?.thumb ?? "",
@@ -37,10 +41,11 @@ function usePngList() {
             value: item.buffer,
           };
         }),
-      };
+      });
+      return void 0;
     });
     images.value.push(...result);
-    Message.success(`成功转化${size(result)} 张图标`);
+    //Message.success(`成功转化${size(result)} 张图标`);
   };
   const onRemoveImages = (ids: string[]) => {
     images.value = images.value.filter((image) => !ids.includes(image.id));
@@ -49,7 +54,7 @@ function usePngList() {
     const cache = images.value
       .filter((image) => ids.includes(image.id))
       .map((item) => ({
-        name: item.name + ".icns",
+        name: item.name + ".ico",
         buffer: item.buffer,
       }));
     Desktop.saveFiles(cache);
